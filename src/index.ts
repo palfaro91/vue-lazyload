@@ -14,7 +14,6 @@ export default {
   install (Vue: App, options: VueLazyloadOptions = {}) {
     const lazy = new Lazy(options)
     const lazyContainer = new LazyContainer(lazy)
-
     const vueVersion = Number(Vue.version.split('.')[0])
     if (vueVersion < 3) return new Error('Vue version at least 3.0')
 
@@ -42,7 +41,10 @@ export default {
     Vue.directive('lazy-container', {
       beforeMount: lazyContainer.bind.bind(lazyContainer),
       updated: lazyContainer.update.bind(lazyContainer),
-      unmounted: lazyContainer.unbind.bind(lazyContainer)
+      unmounted: lazyContainer.unbind.bind(lazyContainer),
+      getSSRProps(binding, vnode) {
+        return {}
+      },
     })
   }
 }

@@ -566,6 +566,9 @@ class Lazy {
         this.lazyLoadHandler = throttle(this._lazyLoadHandler.bind(this), this.options.throttleWait);
         this.setMode(this.options.observer ? modeType.observer : modeType.event);
     }
+    getSSRProps() {
+        return {};
+    }
     /**
      * output listener's load performance
      * @return {Array}
@@ -997,6 +1000,9 @@ class LazyContainer {
         this._queue = [];
         this.update(el, binding);
     }
+    getSSRProps() {
+        return {};
+    }
     update(el, binding) {
         this.el = el;
         this.options = assignDeep({}, defaultOptions, binding.value);
@@ -1093,6 +1099,9 @@ var LazyImage = (lazy => {
                     ref: el
                 }, [(_a = slots.default) === null || _a === void 0 ? void 0 : _a.call(slots)]);
             };
+        },
+        getSSRProps() {
+            return {};
         }
     });
 });
@@ -1106,6 +1115,7 @@ var index = {
     install(Vue, options = {}) {
         const lazy = new Lazy(options);
         const lazyContainer = new LazyContainerMananger(lazy);
+        console.log('i am installed', options);
         const vueVersion = Number(Vue.version.split('.')[0]);
         if (vueVersion < 3) return new Error('Vue version at least 3.0');
         Vue.config.globalProperties.$Lazyload = lazy;
@@ -1122,13 +1132,17 @@ var index = {
             updated: lazy.lazyLoadHandler.bind(lazy),
             unmounted: lazy.remove.bind(lazy),
             getSSRProps(binding, vnode) {
+                console.log('getssrprops called in directive', vnode);
                 return {};
             }
         });
         Vue.directive('lazy-container', {
             beforeMount: lazyContainer.bind.bind(lazyContainer),
             updated: lazyContainer.update.bind(lazyContainer),
-            unmounted: lazyContainer.unbind.bind(lazyContainer)
+            unmounted: lazyContainer.unbind.bind(lazyContainer),
+            getSSRProps(binding, vnode) {
+                return {};
+            }
         });
     }
 };

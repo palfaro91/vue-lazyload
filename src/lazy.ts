@@ -114,8 +114,11 @@ class Lazy {
     this._initEvent()
     this._imageCache = new ImageCache(200)
     this.lazyLoadHandler = throttle(this._lazyLoadHandler.bind(this), this.options.throttleWait!)
-
     this.setMode(this.options.observer ? modeType.observer : modeType.event)
+  }
+
+  getSSRProps() {
+    return {}
   }
 
   /**
@@ -181,7 +184,7 @@ class Lazy {
 
       const newListener = new ReactiveListener(
         el,
-        src,
+        src as string,
         error!,
         loading!,
         binding.arg!,
@@ -486,7 +489,7 @@ class Lazy {
     value: TvalueFormatterParam
   )
   {
-    if (isObject(value)) {
+    if (typeof value === 'object' && isObject(value)) {
       if (!value.src && !this.options.silent) console.error('Vue Lazyload warning: miss src with ' + value)
       return {
         src: value.src,

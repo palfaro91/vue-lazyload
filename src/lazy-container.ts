@@ -63,6 +63,10 @@ class LazyContainer {
     this.update(el, binding)
   }
 
+  getSSRProps() {
+    return {}
+  }
+
   update (el: HTMLElement, binding: DirectiveBinding) {
     this.el = el
     this.options = assign({}, defaultOptions, binding.value)

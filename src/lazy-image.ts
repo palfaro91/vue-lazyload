@@ -99,6 +99,9 @@ export default (lazy: Lazy) => {
         },
         [slots.default?.()]
       )
+    },
+    getSSRProps() {
+      return {}
     }
   })
 }
