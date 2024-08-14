@@ -1,6 +1,6 @@
 /*!
  * Vue-Lazyload.js v3.0.0
- * (c) 2023 Awe <hilongjw@gmail.com>
+ * (c) 2024 Awe <hilongjw@gmail.com>
  * Released under the MIT License.
  */
 
@@ -1120,7 +1120,10 @@ var index = {
             beforeMount: lazy.add.bind(lazy),
             beforeUpdate: lazy.update.bind(lazy),
             updated: lazy.lazyLoadHandler.bind(lazy),
-            unmounted: lazy.remove.bind(lazy)
+            unmounted: lazy.remove.bind(lazy),
+            getSSRProps(binding, vnode) {
+                return {};
+            }
         });
         Vue.directive('lazy-container', {
             beforeMount: lazyContainer.bind.bind(lazyContainer),
