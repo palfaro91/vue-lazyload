@@ -1,5 +1,5 @@
 /*!
- * Vue-Lazyload.js v3.0.0
+ * Vue-Lazyload.js v3.1.0
  * (c) 2024 Awe <hilongjw@gmail.com>
  * Released under the MIT License.
  */
@@ -538,7 +538,7 @@ const DEFAULT_OBSERVER_OPTIONS = {
 };
 class Lazy {
     constructor({ preLoad, error, throttleWait, preLoadTop, dispatchEvent, loading, attempt, silent = true, scale, listenEvents, filter, adapter, observer, observerOptions }) {
-        this.version = '"3.0.0"';
+        this.version = '"3.1.0"';
         this.lazyContainerMananger = null;
         this.mode = modeType.event;
         this.ListenerQueue = [];
@@ -881,7 +881,7 @@ class Lazy {
         }
     }
     _valueFormatter(value) {
-        if (isObject(value)) {
+        if (typeof value === 'object' && isObject(value)) {
             if (!value.src && !this.options.silent) console.error('Vue Lazyload warning: miss src with ' + value);
             return {
                 src: value.src,
@@ -1115,7 +1115,6 @@ var index = {
     install(Vue, options = {}) {
         const lazy = new Lazy(options);
         const lazyContainer = new LazyContainerMananger(lazy);
-        console.log('i am installed', options);
         const vueVersion = Number(Vue.version.split('.')[0]);
         if (vueVersion < 3) return new Error('Vue version at least 3.0');
         Vue.config.globalProperties.$Lazyload = lazy;
@@ -1132,7 +1131,6 @@ var index = {
             updated: lazy.lazyLoadHandler.bind(lazy),
             unmounted: lazy.remove.bind(lazy),
             getSSRProps(binding, vnode) {
-                console.log('getssrprops called in directive', vnode);
                 return {};
             }
         });

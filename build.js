@@ -11,7 +11,7 @@ const version = process.env.VERSION || require('./package.json').version
 const banner =
     '/*!\n' +
     ' * Vue-Lazyload.js v' + version + '\n' +
-    ' * (c) ' + new Date().getFullYear() + ' Awe <hilongjw@gmail.com>\n' +
+    ' * (c) ' + new Date().getFullYear() + ' Pablo\n' +
     ' * Released under the MIT License.\n' +
     ' */\n'
 
