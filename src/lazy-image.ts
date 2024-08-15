@@ -73,7 +73,7 @@ export default (lazy: Lazy) => {
       const init = () => {
         const { src, loading, error } = lazy._valueFormatter(props.src)
         state.loaded = false
-        options.src = src
+        options.src = src as string
         options.error = error!
         options.loading = loading!
         renderSrc.value = options.loading

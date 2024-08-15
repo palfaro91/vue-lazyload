@@ -1,6 +1,6 @@
 /*!
- * Vue-Lazyload.js v3.1.0
- * (c) 2024 Awe <hilongjw@gmail.com>
+ * Vue-Lazyload.js v3.1.1
+ * (c) 2024 Pablo
  * Released under the MIT License.
  */
 
@@ -538,7 +538,7 @@ const DEFAULT_OBSERVER_OPTIONS = {
 };
 class Lazy {
     constructor({ preLoad, error, throttleWait, preLoadTop, dispatchEvent, loading, attempt, silent = true, scale, listenEvents, filter, adapter, observer, observerOptions }) {
-        this.version = '"3.1.0"';
+        this.version = '"3.1.1"';
         this.lazyContainerMananger = null;
         this.mode = modeType.event;
         this.ListenerQueue = [];
