@@ -1,5 +1,5 @@
 /*!
- * Vue-Lazyload.js v3.1.1
+ * Vue-Lazyload.js v3.1.2
  * (c) 2024 Pablo
  * Released under the MIT License.
  */
@@ -538,7 +538,7 @@ const DEFAULT_OBSERVER_OPTIONS = {
 };
 class Lazy {
     constructor({ preLoad, error, throttleWait, preLoadTop, dispatchEvent, loading, attempt, silent = true, scale, listenEvents, filter, adapter, observer, observerOptions }) {
-        this.version = '"3.1.1"';
+        this.version = '"3.1.2"';
         this.lazyContainerMananger = null;
         this.mode = modeType.event;
         this.ListenerQueue = [];
@@ -1117,13 +1117,31 @@ var index = {
         const lazyContainer = new LazyContainerMananger(lazy);
         const vueVersion = Number(Vue.version.split('.')[0]);
         if (vueVersion < 3) return new Error('Vue version at least 3.0');
+        if (options.debug) {
+            console.log('will install vue-lazyload');
+        }
         Vue.config.globalProperties.$Lazyload = lazy;
+        if (options.debug) {
+            console.log('added $Lazyload to globalProperties');
+        }
         Vue.provide('Lazyload', lazy);
+        if (options.debug) {
+            console.log('Vue.provide("Lazyload", lazy) set');
+        }
         if (options.lazyComponent) {
             Vue.component('lazy-component', LazyComponent(lazy));
+            if (options.debug) {
+                console.log('Did install lazy-component component');
+            }
         }
         if (options.lazyImage) {
             Vue.component('lazy-image', LazyImage(lazy));
+            if (options.debug) {
+                console.log('Did install lazy-image component');
+            }
+        }
+        if (options.debug) {
+            console.log('Will add lazy directive');
         }
         Vue.directive('lazy', {
             beforeMount: lazy.add.bind(lazy),
@@ -1134,6 +1152,12 @@ var index = {
                 return {};
             }
         });
+        if (options.debug) {
+            console.log('did install lazy directive');
+        }
+        if (options.debug) {
+            console.log('will install lazy-container directive');
+        }
         Vue.directive('lazy-container', {
             beforeMount: lazyContainer.bind.bind(lazyContainer),
             updated: lazyContainer.update.bind(lazyContainer),
@@ -1142,6 +1166,9 @@ var index = {
                 return {};
             }
         });
+        if (options.debug) {
+            console.log('did install lazy-container directive');
+        }
     }
 };
 

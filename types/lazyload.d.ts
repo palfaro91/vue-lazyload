@@ -24,6 +24,7 @@ export interface loadImageAsyncOption {
 }
 
 export interface VueLazyloadOptions {
+  debug?: boolean
   lazyComponent?: boolean;
   lazyImage?: boolean;
   preLoad?: number;
